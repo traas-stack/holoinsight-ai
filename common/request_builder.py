@@ -24,7 +24,7 @@ class RequestBuilder:
         @return: The built AD request object.
         """
         # Data processing
-        ts = self.body.get("InputTimeSeries")
+        ts = self.body.get("inputTimeSeries")
         detect_time = self.body.get("detectTime")
         period = self.body.get("intervalTime")
         data_by_data = self.data_process(ts, detect_time, period, detect_length=self.period_mapper(period))

@@ -21,7 +21,7 @@ def run_9():
     detect_time = 1681711200000
     ts = TestDataCreator.create_stable_ts(detect_time, 1 * 1440, 60000, 500, 600)
     ts[str(detect_time)] = 1000
-    body = {"InputTimeSeries": ts, "intervalTime": 60000,
+    body = {"inputTimeSeries": ts, "intervalTime": 60000,
             "detectTime": detect_time,
             "algorithmConfig": {"algorithmType": "up", "sensitivity": "mid"},
             "ruleConfig": {"defaultDuration": 1,

@@ -25,7 +25,7 @@ def run_1():
     # Add anomaly value at the detection time
     ts[str(detect_time)] = 0
     # Create the request body with input time series, detection time, and algorithm and rule configurations
-    body = {"InputTimeSeries": ts, "intervalTime": 60000,
+    body = {"inputTimeSeries": ts, "intervalTime": 60000,
             "detectTime": detect_time,
             "algorithmConfig": {"algorithmType": "down", "sensitivity": "mid"},
             "ruleConfig": {"defaultDuration": 1, "customChangeRate": 0.1}}
