@@ -23,7 +23,7 @@ def run_8():
     # Add anomaly value at the detection time and a value 500 intervals before the detection time
     ts[str(detect_time)] = 0
     ts[str(detect_time - 500 * 60000)] = 0
-    body = {"InputTimeSeries": ts, "intervalTime": 60000,
+    body = {"inputTimeSeries": ts, "intervalTime": 60000,
             "detectTime": detect_time,
             "algorithmConfig": {"algorithmType": "down", "sensitivity": "mid"},
             "ruleConfig": {"defaultDuration": 1, "customChangeRate": 0.1}}

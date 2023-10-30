@@ -26,7 +26,7 @@ def run_7():
     ts[str(detect_time - 2 * 1440 * 60000)] = 1000
     ts[str(detect_time - 3 * 1440 * 60000)] = 1000
     ts[str(detect_time - 4 * 1440 * 60000)] = 1000
-    body = {"InputTimeSeries": ts, "intervalTime": 60000,
+    body = {"inputTimeSeries": ts, "intervalTime": 60000,
             "detectTime": detect_time,
             "algorithmConfig": {"algorithmType": "up", "sensitivity": "mid"},
             "ruleConfig": {"defaultDuration": 1,
