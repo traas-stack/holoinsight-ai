@@ -20,6 +20,7 @@ class DynamicThresholdDetector:
         self.train_data = train_data
         self.minus_data()
         self.smoothness = True
+        self.alarm_info = ""
 
     def run(self):
         """
@@ -36,10 +37,14 @@ class DynamicThresholdDetector:
                 cur_fe = Utils.diff_percentile_func(self.detect_data, int(k), is_down)[-1]
                 target_th = ThresholdCalc(v).run()
                 if cur_fe < target_th:
+                    self.alarm_info = f"The current feature {round(abs(cur_fe),2)} " \
+                                      f"exceeds the alert baseline {round(abs(target_th),2)}"
                     return True
         else:
             target_th = ThresholdCalc(features).run()
             if self.detect_data[-1] < target_th:
+                self.alarm_info = f"The current value {round(abs(self.detect_data[-1]),2)} " \
+                                  f"exceeds the alert baseline {round(abs(target_th),2)}"
                 return True
         return False
 

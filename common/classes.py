@@ -84,7 +84,7 @@ class Response4AD:
         """
         Returns a dictionary containing the isException and success attributes of the Response4AD object.
         """
-        return {"isException": self.isException, "isSuccessful": self.success}
+        return {"isException": self.isException, "isSuccessful": self.success, "alarmMsg": self.alarmMsg}
 
 
 if __name__ == "__main__":

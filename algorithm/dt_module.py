@@ -47,10 +47,12 @@ class DynamicThresholdModule(BaseModule):
         if rule_result:
             status.alarmOrNot = rule_result
             return status
-        dt = DynamicThresholdDetector(detect_data, train_data, self.req.detect_info.algorithm_type).run()
+        dtd = DynamicThresholdDetector(detect_data, train_data, self.req.detect_info.algorithm_type)
+        dt = dtd.run()
         if dt:
             status.alarmOrNot = dt
             status.needNext = True
+            status.alarmReason = dtd.alarm_info
         return status
 
     def filter(self, status: StatusInOut) -> StatusInOut:
@@ -88,6 +90,7 @@ class DynamicThresholdModule(BaseModule):
         """
         if status.alarmOrNot:
             self.resp.isException = True
+            self.resp.alarmMsg = status.alarmReason
         return status
 
 
