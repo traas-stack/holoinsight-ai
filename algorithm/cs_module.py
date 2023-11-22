@@ -43,15 +43,18 @@ class ColdStartModule(BaseModule):
         :return: The updated status object
         """
         detect_data = self.req.data_by_day.get("0")
-        rule_result = RuleChecker(detect_data, self.req).detector()
+        rc = RuleChecker(detect_data, self.req)
+        rule_result = rc.detector()
         if rule_result:
             status.alarmOrNot = rule_result
+            status.alarmReason = rc.alarm_info
             return status
         p_d_a_d = DiffOutlierDetector(detect_data, self.req.detect_info.algorithm_type)
         re = p_d_a_d.run()
         if re:
             status.alarmOrNot = re
             status.needNext = True
+            status.alarmReason = p_d_a_d.alarm_info
             status.duration = p_d_a_d.real_duration
         return status
 
@@ -80,8 +83,6 @@ class ColdStartModule(BaseModule):
         :param status: The current status object
         :return: The updated status object
         """
-        if status.alarmOrNot:
-            status.alarmReason = "Cold start alarm!"
         return status
 
     def to_resp(self, status):
@@ -93,6 +94,7 @@ class ColdStartModule(BaseModule):
         """
         if status.alarmOrNot:
             self.resp.isException = True
+            self.resp.alarmMsg = status.alarmReason
         return status
 
 

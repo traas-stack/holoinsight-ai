@@ -19,6 +19,8 @@ class RuleChecker:
         self.up = self.req.rule_info.up_threshold
         self.down = self.req.rule_info.down_threshold
         self.algorithm_type = self.req.detect_info.algorithm_type
+        ##
+        self.alarm_info = ''
 
     def detector(self):
         """
@@ -28,9 +30,13 @@ class RuleChecker:
         """
         if self.algorithm_type == Constants.ALGORITHM_TYPE_UP.value:
             if self.detect_data[-1] > self.up:
+                self.alarm_info = f"The current value {round(abs(self.detect_data[-1]), 2)} " \
+                                  f"exceeds the alert baseline {round(abs(self.up), 2)}"
                 return True
         elif self.algorithm_type == Constants.ALGORITHM_TYPE_DOWN.value:
             if self.detect_data[-1] < self.down:
+                self.alarm_info = f"The current value {round(abs(self.detect_data[-1]), 2)} " \
+                                  f"exceeds the alert baseline {round(abs(self.down), 2)}"
                 return True
         return False
 

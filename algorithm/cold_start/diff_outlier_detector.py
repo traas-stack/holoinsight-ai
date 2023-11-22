@@ -23,6 +23,7 @@ class DiffOutlierDetector:
         self.default_duration = 1
         # output
         self.real_duration = 0
+        self.alarm_info = ''
 
     def run(self):
         """
@@ -40,6 +41,8 @@ class DiffOutlierDetector:
             real_threshold = max(np.median(pre) + down_threshold, self.detect_data[-self.real_duration - 1])
             if max(post) < real_threshold:
                 if self.real_duration >= self.default_duration:
+                    self.alarm_info = f"The current value {round(abs(post[-1]),2)} " \
+                                      f"exceeds the alert baseline {round(abs(real_threshold),2)}"
                     return True
         return False
 
