@@ -80,6 +80,8 @@ class ColdStartModule(BaseModule):
         :param status: The current status object
         :return: The updated status object
         """
+        if status.alarmOrNot:
+            status.alarmReason = "Cold start alarm!"
         return status
 
     def to_resp(self, status):
